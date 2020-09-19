@@ -1,0 +1,54 @@
+.gear {
+  align-self: center;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  color: #fff;
+  display: flex; /* or inline-flex */
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  font-weight: bold;
+  opacity: 0.3;
+}
+
+.gearActive {
+  border: solid #d0e0f0 0.3rem;
+  color: #fff;
+  opacity: 1;
+}
+
+.gearR {
+  grid-column-start: 3;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 1;
+}
+
+.gearN {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 2;
+}
+
+.gearD {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 3;
+}
+
+.gearP {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 4;
+  grid-row-end: 4;
+}
+
+.gearB {
+  grid-column-start: 3;
+  grid-column-end: 3;
+  grid-row-start: 5;
+  grid-row-end: 5;
+}
