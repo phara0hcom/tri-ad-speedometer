@@ -12,8 +12,8 @@ const Gears: React.FC<GearsProps> = (props) => {
   const { gearArr } = props;
   return (
     <div className={classes.gears}>
-      {gearArr.map((el) => (
-        <Gear {...el} />
+      {gearArr.map((el, i) => (
+        <Gear key={`gear_${el.label}${i + 1}`} {...el} />
       ))}
     </div>
   );
