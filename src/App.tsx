@@ -5,6 +5,8 @@ import Speedometer from './components/Speedometer';
 
 import classes from './App.module.scss';
 
+let interval: number;
+
 function App() {
   const [speed, setSpeed] = useState(0);
   const [accelerate, setAccelerate] = useState(false);
@@ -21,10 +23,35 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (accelerate) {
+      if (speed === 0) setSpeed((prev) => prev + 1);
+      interval = window.setInterval(() => {
+        setSpeed((prev) => (prev + 1 <= 100 ? prev + 1 : 100));
+        if (speed > 100 || speed <= 0) {
+          clearInterval(interval);
+        }
+      }, 200);
+    } else if (speed > 0) {
+      interval = window.setInterval(() => {
+        setSpeed((prev) => (prev - 1 > 0 ? prev - 1 : 0));
+        if (speed > 100 || speed <= 0) {
+          clearInterval(interval);
+        }
+      }, 200);
+    }
+
+    return () => {
+      clearInterval(interval);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accelerate, speed]);
+
   const keyPressDown = (event: KeyboardEvent) => {
     event.preventDefault();
     if (event.key === ' ') {
-      setSpeed((prev) => prev + 1);
+      setAccelerate(true);
     }
   };
 
