@@ -47,7 +47,7 @@ function App() {
       clearInterval(interval);
       interval = window.setInterval(() => {
         setSpeed((prev) => (prev - 1 > 0 ? prev - 1 : 0));
-      }, 200);
+      }, 150);
     }
   }, [gasPedal, speed, gearPos, accelerating]);
 
@@ -92,6 +92,7 @@ function App() {
       <Speedometer
         width={500}
         height={500}
+        accelerating={accelerating}
         speed={speed}
         units={speedUnitStr}
       />

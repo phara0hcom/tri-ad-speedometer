@@ -17,7 +17,7 @@ export const gradientArr = [
     x1: '0',
     y1: '0',
     x2: '1',
-    y2: '1',
+    y2: '0.5',
     stop: [
       { offset: '0%', 'stop-color': '#CFE0F4', 'stop-opacity': '0' },
       { offset: '30%', 'stop-color': '#CFE0F4', 'stop-opacity': '0' },
@@ -28,12 +28,8 @@ export const gradientArr = [
     x1: '1',
     y1: '1',
     x2: '0',
-    y2: '0',
-    stop: [
-      { offset: '0%', 'stop-color': '#CFE0F4', 'stop-opacity': '0.4' },
-      { offset: '30%', 'stop-color': '#CFE0F4', 'stop-opacity': '0' },
-      { offset: '100%', 'stop-color': '#CFE0F4', 'stop-opacity': '0' },
-    ],
+    y2: '0.5',
+    stop: [],
   },
 ];
 

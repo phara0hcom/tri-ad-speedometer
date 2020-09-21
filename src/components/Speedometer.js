@@ -12,7 +12,7 @@ import {
   gradientArr,
 } from '../constants';
 
-const Speedometer = ({ width, height, speed, units }) => {
+const Speedometer = ({ width, height, speed, units, accelerating }) => {
   const ref = useRef(null);
   const size = Math.min(width, height);
   const fourth = size / 4;
@@ -133,6 +133,7 @@ const Speedometer = ({ width, height, speed, units }) => {
   }, [speed]);
 
   const draw = () => {
+    const transitionDuration = accelerating ? 200 : 150;
     const electricBarPath = d3.select('.electricBar');
     const gasBarPath = d3.select('.gasBar');
     const speedCounterText = d3.select(`.${classes.speedCounter}`);
@@ -141,6 +142,16 @@ const Speedometer = ({ width, height, speed, units }) => {
 
     let newElectricBar = { ...electricBar };
     let newGasBar = { ...gasBar };
+
+    function arcTween(newAngle, pathArc) {
+      return (d) => {
+        var interpolate = d3.interpolate(d.endAngle, newAngle);
+        return (t) => {
+          d.endAngle = interpolate(t);
+          return pathArc(d);
+        };
+      };
+    }
 
     if (speed > electricBar.maxMpH) {
       // make the color yellow and
@@ -172,13 +183,13 @@ const Speedometer = ({ width, height, speed, units }) => {
       gasBarPath
         .transition()
         .ease(d3.easeLinear)
-        .duration(200)
+        .duration(transitionDuration)
         .attrTween('d', arcTween(newGasBar.endAngle, arc2));
 
       electricBarPath
         .transition()
         .ease(d3.easeLinear)
-        .duration(200)
+        .duration(transitionDuration)
         .attrTween('fill', function () {
           return d3.interpolateRgb(this.getAttribute('fill'), '#FBFF59');
         });
@@ -192,13 +203,13 @@ const Speedometer = ({ width, height, speed, units }) => {
       gasBarPath
         .transition()
         .ease(d3.easeLinear)
-        .duration(200)
+        .duration(transitionDuration)
         .attrTween('d', arcTween(newGasBar.startAngle, arc2));
       electricBarPath.attr('fill', (d) => color(d.data.label));
       const electricBarPathTransition = electricBarPath
         .transition()
         .ease(d3.easeLinear)
-        .duration(200);
+        .duration(transitionDuration);
 
       electricBarPathTransition
         .attrTween('fill', function () {
@@ -209,20 +220,11 @@ const Speedometer = ({ width, height, speed, units }) => {
       gradientPath
         .transition()
         .ease(d3.easeLinear)
-        .duration(200)
+        .duration(transitionDuration)
         .attrTween('d', arcTween(newElectricBar.endAngle, arcGradient));
     }
-    speedCounterText.text(speed);
 
-    function arcTween(newAngle, pathArc) {
-      return (d) => {
-        var interpolate = d3.interpolate(d.endAngle, newAngle);
-        return (t) => {
-          d.endAngle = interpolate(t);
-          return pathArc(d);
-        };
-      };
-    }
+    speedCounterText.text(speed);
   };
 
   return (
