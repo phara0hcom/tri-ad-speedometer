@@ -189,7 +189,6 @@ const Speedometer = ({ width, height, speed, units }) => {
       const gradientPathIndex = gradientArcsEnds.length - gradientFilter.length;
       const gradientPath = d3.select(`.linearGradientPath${gradientPathIndex}`);
 
-      console.log({ gradientPathIndex, gradientArcsEnds });
       gasBarPath
         .transition()
         .ease(d3.easeLinear)

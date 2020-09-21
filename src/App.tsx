@@ -31,10 +31,8 @@ function App() {
   useEffect(() => {
     const maxSpeedNum = maxSpeedObj[speedUnitStr][gearPos] || 0;
     if (gasPedal && (gearPos === 'D' || gearPos === 'R') && !accelerating) {
-      console.log('accelerating');
       setAccelerating(true);
       if (speed === 0) setSpeed((prev) => prev + 1);
-      console.log('38 clearInterval');
       clearInterval(interval);
       interval = window.setInterval(() => {
         setSpeed((prev) => (prev + 1 <= maxSpeedNum ? prev + 1 : maxSpeedNum));
@@ -45,8 +43,6 @@ function App() {
       ((!gasPedal && (gearPos === 'D' || gearPos === 'R')) ||
         (gasPedal && gearPos !== 'D' && gearPos !== 'R'))
     ) {
-      console.log('decell');
-      console.log('54 clearInterval');
       setAccelerating(false);
       clearInterval(interval);
       interval = window.setInterval(() => {
