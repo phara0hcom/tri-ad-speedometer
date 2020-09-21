@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Gears from './components/Gears';
 import Speedometer from './components/Speedometer';
+import Gauge from './components/Gauge';
 
 import { gearsArr, speedUnitStr, maxSpeedObj } from './constants';
 
@@ -96,6 +97,7 @@ function App() {
         speed={speed}
         units={speedUnitStr}
       />
+      <Gauge width={500} height={500} fill="10" />
     </div>
   );
 }
