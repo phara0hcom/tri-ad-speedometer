@@ -23,7 +23,7 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
 
   const arcGradient = d3
     .arc()
-    .innerRadius(radius - 80)
+    .innerRadius(radius - 100)
     .outerRadius(radius - 30);
 
   const arc2 = d3
@@ -99,6 +99,7 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
       .append('path')
       .attr('class', (d) => `linearGradientPath${d.index}`)
       .attr('fill', (d) => `url(#linearGradient${d.index + 1}`)
+      .attr('fill-opacity', 0)
       .attr('d', arcGradient)
       .attr('transform', `rotate(229.5)`);
 
@@ -215,11 +216,19 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
         })
         .attrTween('d', arcTween(newElectricBar.endAngle, arc));
 
-      gradientPath
+      const gradientPathTransition = gradientPath
         .transition()
         .ease(d3.easeLinear)
-        .duration(transitionDuration)
-        .attrTween('d', arcTween(newElectricBar.endAngle, arcGradient));
+        .duration(transitionDuration);
+
+      gradientPathTransition
+        .attrTween('d', arcTween(newElectricBar.endAngle, arcGradient))
+        .attrTween('fill-opacity', function () {
+          return d3.interpolate(
+            this.getAttribute('fill-opacity'),
+            speed / 10 >= 1 ? 1 : speed / 10
+          );
+        });
     }
 
     speedCounterText.text(speed);
