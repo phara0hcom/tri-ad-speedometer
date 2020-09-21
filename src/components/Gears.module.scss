@@ -1,8 +1,9 @@
 .gears {
   display: grid;
   grid-column-start: 1;
-  grid-column-end: 2;
+  grid-column-end: 3;
   grid-row-start: 1;
+  grid-row-end: 4;
   grid-template-columns: 2rem 2rem 2rem 2rem;
   grid-template-rows: 5rem 5rem 5rem 5rem 5rem 5rem;
 }

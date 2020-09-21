@@ -14,25 +14,23 @@ import {
 
 const Speedometer = ({ width, height, speed, units, accelerating }) => {
   const ref = useRef(null);
-  const size = Math.min(width, height);
-  const fourth = size / 4;
-  const half = size / 2;
+  const radius = Math.min(width, height) / 2;
 
   const arc = d3
     .arc()
-    .innerRadius(fourth * 0.9)
-    .outerRadius(fourth);
+    .innerRadius(radius - 50)
+    .outerRadius(radius - 30);
 
   const arcGradient = d3
     .arc()
-    .innerRadius(fourth * 0.6)
-    .outerRadius(fourth);
+    .innerRadius(radius - 80)
+    .outerRadius(radius - 30);
 
   const arc2 = d3
     .arc()
     .startAngle(gasBar.startAngle)
-    .innerRadius(fourth * 0.9)
-    .outerRadius(fourth);
+    .innerRadius(radius - 50)
+    .outerRadius(radius - 30);
 
   useEffect(() => {
     // initialize speedometer
@@ -43,17 +41,17 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
     const gradientBg = meter
       .append('g')
       .attr('class', 'gradientBg')
-      .attr('transform', `translate(${half}, ${half + 30}) scale(1.9)`);
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
     const bgBars = meter
       .append('g')
       .attr('class', 'bgBars')
-      .attr('transform', `translate(${half}, ${half + 30}) scale(1.9)`);
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
     const bars = meter
       .append('g')
       .attr('class', 'valueBars')
-      .attr('transform', `translate(${half}, ${half + 30}) scale(1.9)`);
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
     gradientArr.forEach((el, i) => {
       const curEl = gradientBg
@@ -78,16 +76,16 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
       .append('text')
       .attr('text-anchor', 'middle')
       .attr('class', classes.speedCounter)
-      .attr('dy', '0.5em')
-      .attr('transform', `translate(${half}, ${half}) scale(1.9)`);
+      .attr('dy', '0')
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
     meter
       .append('text')
       .attr('text-anchor', 'middle')
       .attr('class', classes.speedUnit)
-      .attr('dy', '3.3em')
+      .attr('dy', '2.5rem')
       .text(units)
-      .attr('transform', `translate(${half}, ${half}) scale(1.9)`);
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
     const color = d3.scaleOrdinal().range(['#424147']);
 
