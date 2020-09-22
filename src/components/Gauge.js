@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
 import classes from './Gauge.module.scss';
+import { barBgColor, barBlueColor, barGreenColor } from '../constants';
 
 const Gauge = ({ width, height, fill, location, type }) => {
   const ref = useRef(null);
@@ -36,27 +37,11 @@ const Gauge = ({ width, height, fill, location, type }) => {
     // initialize Gauge
     const container = d3.select(ref.current);
     const meter = container.style('width', width).style('height', height);
-    const bgBars = meter
-      .append('g')
-      .attr('class', `${type}_bgBars`)
-      .attr('transform', `translate( ${width / 2}, ${width / 2}) ${transform}`);
 
     const bars = meter
       .append('g')
       .attr('class', `${type}_gaugeBars`)
       .attr('transform', `translate( ${width / 2}, ${width / 2}) ${transform}`);
-
-    // const color = d3.scaleOrdinal().range(['#424147']);
-
-    // const dgData = returnPieData(createData(100));
-
-    // bgBars
-    //   .selectAll('path')
-    //   .data(dgData)
-    //   .enter()
-    //   .append('path')
-    //   .attr('fill', () => color(1))
-    //   .attr('d', arc);
 
     const newData = createData(fill);
     const pieData = returnPieData(newData);
@@ -71,9 +56,9 @@ const Gauge = ({ width, height, fill, location, type }) => {
       .enter()
       .append('path')
       .attr('fill', (d) => {
-        if (d.data.empty) return '#424147';
+        if (d.data.empty) return barBgColor;
         if (d.data.gap) return 'none';
-        return type === 'electric' ? '#CFE0F4' : '#6EBBB9';
+        return type === 'electric' ? barBlueColor : barGreenColor;
       })
       .attr('d', arc);
 

@@ -3,6 +3,9 @@ import * as d3 from 'd3';
 
 import classes from './Speedometer.module.scss';
 import {
+  barBgColor,
+  barBlueColor,
+  barYellowColor,
   electricBar,
   electricBarBg,
   gasBar,
@@ -87,8 +90,6 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
       .text(units)
       .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
-    const color = d3.scaleOrdinal().range(['#424147']);
-
     const arcsBG = [electricBarBg, gasBarBg];
     const arcs = [electricBar, gasBar];
 
@@ -109,7 +110,7 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
       .enter()
       .append('path')
       .attr('class', (d) => d.data.label)
-      .attr('fill', (d) => color(d.data.label))
+      .attr('fill', barBgColor)
       .attr('d', arc)
       .attr('transform', `rotate(229.5)`);
 
@@ -119,7 +120,7 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
       .enter()
       .append('path')
       .attr('class', (d) => d.data.label)
-      .attr('fill', (d) => color(d.data.label))
+      .attr('fill', barBgColor)
       .attr('d', arc)
       .attr('transform', `rotate(229.5)`);
 
@@ -137,8 +138,6 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
     const gasBarPath = d3.select('.gasBar');
     const speedCounterText = d3.select(`.${classes.speedCounter}`);
 
-    let color = d3.scaleOrdinal().range(['#CFE0F4']);
-
     let newElectricBar = { ...electricBar };
     let newGasBar = { ...gasBar };
 
@@ -154,7 +153,6 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
 
     if (speed > electricBar.maxMpH) {
       // make the color yellow and
-      color = d3.scaleOrdinal().range(['#FBFF59']);
       const gas100 = gasBar.maxMpH - electricBar.maxMpH;
       const gas100Angle = gasBarBg.endAngle - gasBar.startAngle;
       const addToGas = speed - electricBar.maxMpH;
@@ -165,7 +163,7 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
       newElectricBar = {
         ...electricBarBg,
         index: 2,
-        data: { value: 69, label: 'electricBar' },
+        data: { value: 65, label: 'electricBar' },
       };
 
       newGasBar = { ...gasBar, endAngle };
@@ -176,8 +174,8 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
     }
 
     if (speed > electricBar.maxMpH) {
-      gasBarPath.attr('fill', (d) => color(d.data.label));
-      electricBarPath.attr('fill', (d) => color(d.data.label));
+      gasBarPath.attr('fill', barYellowColor);
+      electricBarPath.attr('fill', barYellowColor);
 
       gasBarPath
         .transition()
@@ -190,7 +188,7 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
         .ease(d3.easeLinear)
         .duration(transitionDuration)
         .attrTween('fill', function () {
-          return d3.interpolateRgb(this.getAttribute('fill'), '#FBFF59');
+          return d3.interpolateRgb(this.getAttribute('fill'), barYellowColor);
         });
     } else {
       const gradientFilter = gradientArcsEnds.filter(
@@ -205,7 +203,7 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
         .duration(transitionDuration)
         .attrTween('d', arcTween(newGasBar.startAngle, arc2));
 
-      electricBarPath.attr('fill', (d) => color(d.data.label));
+      electricBarPath.attr('fill', (d) => barBlueColor);
 
       const electricBarPathTransition = electricBarPath
         .transition()
@@ -214,7 +212,7 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
 
       electricBarPathTransition
         .attrTween('fill', function () {
-          return d3.interpolateRgb(this.getAttribute('fill'), '#CFE0F4');
+          return d3.interpolateRgb(this.getAttribute('fill'), barBlueColor);
         })
         .attrTween('d', arcTween(newElectricBar.endAngle, arc));
 

@@ -1,5 +1,10 @@
 import * as d3 from 'd3';
 
+export const barBgColor = '#424147';
+export const barBlueColor = '#CFE0F4';
+export const barGreenColor = '#6EBBB9';
+export const barYellowColor = '#FBFF59';
+
 export const gearsArr = ['R', 'N', 'D', 'P', 'B'];
 export const maxSpeedObj: {
   [key: string]: {
@@ -41,12 +46,12 @@ export const gradientArcsEmpty = gradientArcs.map((el) => {
 });
 
 export const electricBarBg = {
-  data: { value: 69, label: 'electricBG' },
+  data: { value: 65, label: 'electricBG' },
   endAngle: 2.792526803190927,
   index: 0,
   padAngle: 0,
   startAngle: 0,
-  value: 69,
+  value: 65,
 };
 
 export const gasBarBg = {
@@ -63,7 +68,7 @@ export const electricBar = {
   data: { value: 0, label: 'electricBar' },
   endAngle: 0,
   index: 2,
-  maxMpH: 69,
+  maxMpH: 65,
   padAngle: 0,
   startAngle: 0,
   value: 0,
