@@ -67,10 +67,6 @@ const Gauge = ({ width, height, fill, location, type }) => {
 
     const newData = createData(fill);
     const pieData = returnPieData(newData);
-    console.group(type);
-    console.log({ newData });
-    console.log({ pieData });
-    console.groupEnd(type);
 
     bars
       .selectAll('path')
@@ -117,7 +113,6 @@ const Gauge = ({ width, height, fill, location, type }) => {
 
     if (dashes > 0) {
       for (let j = dashes; j > 0; j--) {
-        console.log({ j });
         if (j === 1) {
           data.push({ empty: 25 });
         } else {

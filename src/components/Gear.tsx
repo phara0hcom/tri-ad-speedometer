@@ -9,7 +9,6 @@ interface GearProps {
 }
 
 const Gear: React.FC<GearProps> = ({ label, active, isRight }) => {
-  console.log(`gear${label}${isRight ? '_Right' : ''}`);
   return (
     <div
       className={`${classes.gear} ${

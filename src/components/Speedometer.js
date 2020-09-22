@@ -90,6 +90,46 @@ const Speedometer = ({ width, height, speed, units, accelerating, gears }) => {
       .text(units)
       .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
+    const dividerGroup = meter
+      .append('g')
+      .attr('class', 'divider')
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+
+    const dividerGradient = dividerGroup
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'dividerGradient');
+
+    dividerGradient
+      .append('stop')
+      .attr('offset', '5%')
+      .attr('stop-color', 'white')
+      .attr('stop-opacity', '0');
+
+    dividerGradient
+      .append('stop')
+      .attr('offset', '50%')
+      .attr('stop-color', 'white')
+      .attr('stop-opacity', '0.5');
+
+    dividerGradient
+      .append('stop')
+      .attr('offset', '95%')
+      .attr('stop-color', 'white')
+      .attr('stop-opacity', '0');
+
+    const gradientPath = d3.path();
+    gradientPath.moveTo(-100, 70);
+    gradientPath.lineTo(100, 70);
+    gradientPath.lineTo(100, 72);
+    gradientPath.lineTo(-100, 72);
+    gradientPath.closePath();
+
+    dividerGroup
+      .append('path')
+      .attr('d', gradientPath)
+      .attr('fill', `url('#dividerGradient')`);
+
     const arcsBG = [electricBarBg, gasBarBg];
     const arcs = [electricBar, gasBar];
 

@@ -88,13 +88,13 @@ function App() {
   return (
     <div className={classes.app}>
       <Gears
-        location="right"
+        location="left"
         gearArr={gearsArr.map((el) => ({ label: el, active: gearPos === el }))}
       />
       <Speedometer
         width={500}
         height={500}
-        gears="right"
+        gears="left"
         accelerating={accelerating}
         speed={speed}
         units={speedUnitStr}
@@ -103,14 +103,14 @@ function App() {
         width={500}
         height={500}
         fill={32}
-        location="bottom-left"
+        location="bottom-right"
         type="electric"
       />
       <Gauge
         width={500}
         height={500}
         fill={70}
-        location="top-left"
+        location="top-right"
         type="gas"
       />
     </div>
