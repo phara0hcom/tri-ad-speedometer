@@ -1,3 +1,18 @@
+# Tamer Elsayed
+
+## install
+
+`npm install` or `yarn install`
+
+## start
+
+`npm start` or `yarn start`
+
+## Description
+
+Hours spend: less then 20 hours.
+I tried to make it all in TypeScript but d3 was causing typing errors and rather then fix those I left those files in JS.  You can switch the gears and the gauges if you change the variable `normalConfig` in `/src/App.tsx` to `false`. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
