@@ -2,18 +2,19 @@ import React from 'react';
 
 import classes from './Gear.module.scss';
 
-export interface GearProps {
-  className?: string;
+interface GearProps {
   label: string;
   active: boolean;
+  isRight: boolean;
 }
 
-const Gear: React.FC<GearProps> = ({ label, active }) => {
+const Gear: React.FC<GearProps> = ({ label, active, isRight }) => {
+  console.log(`gear${label}${isRight ? '_Right' : ''}`);
   return (
     <div
-      className={`${classes.gear} ${classes[`gear${label}`]} ${
-        active ? classes.gearActive : ''
-      }`}
+      className={`${classes.gear} ${
+        classes[`gear${label}${isRight ? '_Right' : ''}`]
+      } ${active ? classes.gearActive : ''}`}
     >
       {label}
     </div>

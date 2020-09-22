@@ -1,9 +1,19 @@
-.gears {
+.gears,
+.gearsRight {
   display: grid;
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 4;
   grid-template-columns: 2rem 2rem 2rem 2rem;
   grid-template-rows: 5rem 5rem 5rem 5rem 5rem 5rem;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+
+.gears {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.gearsRight {
+  grid-column-start: 4;
+  grid-column-end: 6;
+  justify-self: end;
 }

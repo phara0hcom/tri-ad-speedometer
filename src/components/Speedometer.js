@@ -15,7 +15,7 @@ import {
   gradientArr,
 } from '../constants';
 
-const Speedometer = ({ width, height, speed, units, accelerating }) => {
+const Speedometer = ({ width, height, speed, units, accelerating, gears }) => {
   const ref = useRef(null);
   const radius = Math.min(width, height) / 2;
 
@@ -235,7 +235,7 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
   };
 
   return (
-    <div className={classes.speedometer}>
+    <div className={classes[`speedometer${gears === 'right' ? 'Right' : ''}`]}>
       <svg ref={ref}></svg>
     </div>
   );
