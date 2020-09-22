@@ -97,7 +97,20 @@ function App() {
         speed={speed}
         units={speedUnitStr}
       />
-      <Gauge width={500} height={500} fill="10" />
+      <Gauge
+        width={500}
+        height={500}
+        fill={32}
+        location="bottom-right"
+        type="electric"
+      />
+      <Gauge
+        width={500}
+        height={500}
+        fill={70}
+        location="top-right"
+        type="gas"
+      />
     </div>
   );
 }

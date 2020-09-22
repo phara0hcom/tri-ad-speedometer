@@ -204,7 +204,9 @@ const Speedometer = ({ width, height, speed, units, accelerating }) => {
         .ease(d3.easeLinear)
         .duration(transitionDuration)
         .attrTween('d', arcTween(newGasBar.startAngle, arc2));
+
       electricBarPath.attr('fill', (d) => color(d.data.label));
+
       const electricBarPathTransition = electricBarPath
         .transition()
         .ease(d3.easeLinear)

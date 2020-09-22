@@ -3,14 +3,34 @@ import * as d3 from 'd3';
 
 import classes from './Gauge.module.scss';
 
-const Gauge = ({ width, height, fill }) => {
+const Gauge = ({ width, height, fill, location, type }) => {
   const ref = useRef(null);
   const radius = Math.min(width, height) / 2;
+  const xAxes = location.split('-')[1];
+
+  let transform = 'rotate(100)';
+  switch (location) {
+    case 'top-left':
+      transform = ' rotate(104)';
+      break;
+
+    case 'bottom-left':
+      transform = ' rotate(53)';
+      break;
+
+    case 'top-right':
+      transform = 'rotate(-135)';
+      break;
+
+    default:
+      transform = 'rotate(-85)';
+      break;
+  }
 
   const arc = d3
     .arc()
     .innerRadius(radius - 50)
-    .outerRadius(radius - 30);
+    .outerRadius(radius - 38);
 
   useEffect(() => {
     // initialize Gauge
@@ -18,85 +38,92 @@ const Gauge = ({ width, height, fill }) => {
     const meter = container.style('width', width).style('height', height);
     const bgBars = meter
       .append('g')
-      .attr('class', 'bgBars')
-      .attr(
-        'transform',
-        'translate(' + width / 2 + ',' + height / 2 + ') scale(-1, 1) rotate(2)'
-      );
+      .attr('class', `${type}_bgBars`)
+      .attr('transform', `translate( ${width / 2}, ${width / 2}) ${transform}`);
 
-    // const bars = meter
-    //   .append('g')
-    //   .attr('class', 'valueBars')
-    //   .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+    const bars = meter
+      .append('g')
+      .attr('class', `${type}_gaugeBars`)
+      .attr('transform', `translate( ${width / 2}, ${width / 2}) ${transform}`);
 
-    const color = d3.scaleOrdinal().range(['#424147', 'none']);
+    // const color = d3.scaleOrdinal().range(['#424147']);
 
-    const arcsTest = d3
-      .pie()
-      .startAngle(Math.PI + Math.PI / 4)
-      .endAngle(Math.PI + Math.PI / 4 + 1.2023973285781058)
-      .padAngle(0.01)([5, 5, 5, 5]);
+    // const dgData = returnPieData(createData(100));
 
-    let startAngle = 0;
-    let lastI = 0;
-    const arcsBG = [];
-    for (let i = 0; i < 4; i++) {
-      arcsBG.push(
-        {
-          index: lastI,
-          value: 5,
-          startAngle: startAngle,
-          endAngle: startAngle + 0.2855993321445265,
-          data: 5,
-        },
-        {
-          index: 1 + lastI,
-          value: 1,
-          startAngle: startAngle + 0.2855993321445265,
-          endAngle: startAngle + 0.2855993321445265 + 0.015,
-          data: 1,
-        }
-      );
-
-      lastI += 2;
-      startAngle = startAngle + 0.2855993321445265 + 0.015;
-    }
-
-    console.log({ arcsBG, arcsTest });
-
-    // const arcs = [electricBar, gasBar];
-
-    bgBars
-      .selectAll('path')
-      .data(arcsTest)
-      .enter()
-      .append('path')
-      .attr('class', (d) => d.data.label)
-      .attr('fill', (d) => color(1))
-      .attr('d', arc);
-
-    // bars
+    // bgBars
     //   .selectAll('path')
-    //   .data(arcs)
+    //   .data(dgData)
     //   .enter()
     //   .append('path')
-    //   .attr('class', (d) => d.data.label)
-    //   .attr('fill', (d) => color(d.data.label))
-    //   .attr('d', arc)
-    //   .attr('transform', `rotate(229.5)`);
+    //   .attr('fill', () => color(1))
+    //   .attr('d', arc);
+
+    const newData = createData(fill);
+    const pieData = returnPieData(newData);
+    console.group(type);
+    console.log({ newData });
+    console.log({ pieData });
+    console.groupEnd(type);
+
+    bars
+      .selectAll('path')
+      .data(pieData)
+      .enter()
+      .append('path')
+      .attr('fill', (d) => {
+        if (d.data.empty) return '#424147';
+        if (d.data.gap) return 'none';
+        return type === 'electric' ? '#CFE0F4' : '#6EBBB9';
+      })
+      .attr('d', arc);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (fill >= 0 && fill <= 100) draw();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fill]);
+  const returnPieData = (data) => {
+    return d3
+      .pie()
+      .value((d) => {
+        return d.full || d.empty || d.gap;
+      })
+      .sort(null)
+      .startAngle(Math.PI)
+      .endAngle(Math.PI + 0.5513973285781058)(data);
+  };
 
-  const draw = () => {};
+  const createData = (percentage) => {
+    let dashes = 4;
+    const factor = percentage / 25;
+    const part = factor % 1;
+    const data = [];
+
+    for (let i = 0; i < factor - part; i++) {
+      data.push({ full: 25 }, { gap: 2 });
+      dashes--;
+    }
+
+    const partBar = 25 * part;
+    if (part > 0) {
+      data.push({ full: partBar }, { empty: 25 - partBar }, { gap: 2 });
+      dashes--;
+    }
+
+    if (dashes > 0) {
+      for (let j = dashes; j > 0; j--) {
+        console.log({ j });
+        if (j === 1) {
+          data.push({ empty: 25 });
+        } else {
+          data.push({ empty: 25 }, { gap: 2 });
+        }
+      }
+    }
+    if (xAxes === 'right') return data.reverse();
+    return data;
+  };
 
   return (
-    <div className={classes.Gauge}>
+    <div className={classes[`gauge-${xAxes}`]} style={{ width, height }}>
       <svg ref={ref}></svg>
     </div>
   );
