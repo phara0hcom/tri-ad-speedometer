@@ -2,31 +2,18 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
 import classes from './Gauge.module.scss';
-import { barBgColor, barBlueColor, barGreenColor } from '../constants';
+import {
+  barBgColor,
+  barBlueColor,
+  barGreenColor,
+  electricSvgPath,
+  gasSvgPath,
+} from '../constants';
 
 const Gauge = ({ width, height, fill, location, type }) => {
-  const ref = useRef(null);
+  const ref = useRef();
   const radius = Math.min(width, height) / 2;
   const xAxes = location.split('-')[1];
-
-  let transform = 'rotate(100)';
-  switch (location) {
-    case 'top-left':
-      transform = ' rotate(104)';
-      break;
-
-    case 'bottom-left':
-      transform = ' rotate(53)';
-      break;
-
-    case 'top-right':
-      transform = 'rotate(-135)';
-      break;
-
-    default:
-      transform = 'rotate(-85)';
-      break;
-  }
 
   const arc = d3
     .arc()
@@ -37,6 +24,38 @@ const Gauge = ({ width, height, fill, location, type }) => {
     // initialize Gauge
     const container = d3.select(ref.current);
     const meter = container.style('width', width).style('height', height);
+
+    let transform = 'rotate(100)';
+    let transformIcon = `translate(${width * 0.78}, ${height * 0.77} )`;
+    switch (location) {
+      case 'top-left':
+        transform = ' rotate(104)';
+        break;
+
+      case 'bottom-left':
+        transform = ' rotate(53)';
+        break;
+
+      case 'top-right':
+        transform = 'rotate(-135)';
+        transformIcon = `translate(${width * 0.886}, ${height * 0.44} )`;
+        break;
+
+      default:
+        transform = 'rotate(-85)';
+        break;
+    }
+
+    const iconPath = type === 'electric' ? electricSvgPath : gasSvgPath;
+    const iconScale = type === 'electric' ? 'scale(0.12)' : 'scale(0.08)';
+
+    meter
+      .append('g')
+      .attr('class', `${type}Icon`)
+      .attr('transform', `${transformIcon} ${iconScale}`)
+      .append('path')
+      .attr('fill', '#fff')
+      .attr('d', iconPath);
 
     const bars = meter
       .append('g')
