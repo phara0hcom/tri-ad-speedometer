@@ -13,6 +13,8 @@ import {
   gradientArcsEmpty,
   gradientArcsEnds,
   gradientArr,
+  leafSvgPath,
+  fuelEffUnitObj,
 } from '../constants';
 
 const Speedometer = ({ width, height, speed, units, accelerating, gears }) => {
@@ -110,7 +112,7 @@ const Speedometer = ({ width, height, speed, units, accelerating, gears }) => {
       .append('stop')
       .attr('offset', '50%')
       .attr('stop-color', 'white')
-      .attr('stop-opacity', '0.5');
+      .attr('stop-opacity', '0.3');
 
     dividerGradient
       .append('stop')
@@ -119,16 +121,41 @@ const Speedometer = ({ width, height, speed, units, accelerating, gears }) => {
       .attr('stop-opacity', '0');
 
     const gradientPath = d3.path();
-    gradientPath.moveTo(-100, 70);
-    gradientPath.lineTo(100, 70);
-    gradientPath.lineTo(100, 72);
-    gradientPath.lineTo(-100, 72);
+    gradientPath.moveTo(-90, 110);
+    gradientPath.lineTo(90, 110);
+    gradientPath.lineTo(90, 112);
+    gradientPath.lineTo(-90, 112);
     gradientPath.closePath();
 
     dividerGroup
       .append('path')
       .attr('d', gradientPath)
       .attr('fill', `url('#dividerGradient')`);
+
+    const fuelGroup = meter
+      .append('g')
+      .attr('class', 'fuelEfficiency')
+      .attr(
+        'transform',
+        'translate(' + width * 0.4 + ',' + height * 0.76 + ')'
+      );
+
+    fuelGroup.append('path').attr('fill', '#7FCF70').attr('d', leafSvgPath);
+    fuelGroup
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('class', classes.fuelEffCount)
+      .attr('dx', '50px')
+      .attr('dy', '20px')
+      .text('34');
+
+    fuelGroup
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('class', classes.fuelEffUnit)
+      .attr('dx', '90px')
+      .attr('dy', '15px')
+      .text(fuelEffUnitObj[units]);
 
     const arcsBG = [electricBarBg, gasBarBg];
     const arcs = [electricBar, gasBar];

@@ -14,10 +14,20 @@
 }
 
 .speedCounter,
-.speedUnit {
+.speedUnit,
+.fuelEffCount,
+.fuelEffUnit {
   fill: #fff;
   font-size: 1.5rem;
   font-variant-numeric: tabular-nums;
+}
+
+.fuelEffCount {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.fuelEffUnit {
+  font-size: 1rem;
 }
 
 .speedUnit {
