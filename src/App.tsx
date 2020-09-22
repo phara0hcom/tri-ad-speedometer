@@ -16,6 +16,8 @@ function App() {
   const [gasPedal, setGasPedal] = useState(false);
   const [accelerating, setAccelerating] = useState(false);
 
+  const normalConfig = true;
+
   useEffect(() => {
     window.addEventListener('keydown', keyPressDown);
     window.addEventListener('keyup', keyPressUp);
@@ -88,13 +90,13 @@ function App() {
   return (
     <div className={classes.app}>
       <Gears
-        location="left"
+        location={normalConfig ? 'left' : 'right'}
         gearArr={gearsArr.map((el) => ({ label: el, active: gearPos === el }))}
       />
       <Speedometer
         width={500}
         height={500}
-        gears="left"
+        gears={normalConfig ? 'left' : 'right'}
         accelerating={accelerating}
         speed={speed}
         units={speedUnitStr}
@@ -103,14 +105,14 @@ function App() {
         width={500}
         height={500}
         fill={32}
-        location="bottom-right"
+        location={normalConfig ? 'bottom-right' : 'bottom-left'}
         type="electric"
       />
       <Gauge
         width={500}
         height={500}
         fill={70}
-        location="top-right"
+        location={normalConfig ? 'top-right' : 'top-left'}
         type="gas"
       />
     </div>

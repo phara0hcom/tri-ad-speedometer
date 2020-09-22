@@ -27,14 +27,15 @@ const Gauge = ({ width, height, fill, location, type }) => {
 
     let transform = 'rotate(100)';
     let transformIcon = `translate(${width * 0.78}, ${height * 0.77} )`;
+
     switch (location) {
       case 'top-left':
-        transform = ' rotate(104)';
+        transform = 'rotate(104)';
         transformIcon = `translate(${width * 0.075}, ${height * 0.44} )`;
         break;
 
       case 'bottom-left':
-        transform = ' rotate(53)';
+        transform = 'rotate(53)';
         transformIcon = `translate(${width * 0.18}, ${height * 0.77} )`;
         break;
 
