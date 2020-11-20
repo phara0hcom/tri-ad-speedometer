@@ -1,3 +1,7 @@
+# TODO
+- https://airbnb.io/visx
+- add gradient tips
+
 # Tamer Elsayed
 
 ## install
