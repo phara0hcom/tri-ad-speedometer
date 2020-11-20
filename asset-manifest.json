@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/tri-ad-speedometer/static/css/main.b796edeb.chunk.css",
-    "main.js": "/tri-ad-speedometer/static/js/main.361219d0.chunk.js",
-    "main.js.map": "/tri-ad-speedometer/static/js/main.361219d0.chunk.js.map",
-    "runtime-main.js": "/tri-ad-speedometer/static/js/runtime-main.5f914ba6.js",
-    "runtime-main.js.map": "/tri-ad-speedometer/static/js/runtime-main.5f914ba6.js.map",
-    "static/js/2.89917009.chunk.js": "/tri-ad-speedometer/static/js/2.89917009.chunk.js",
-    "static/js/2.89917009.chunk.js.map": "/tri-ad-speedometer/static/js/2.89917009.chunk.js.map",
+    "main.js": "/tri-ad-speedometer/static/js/main.4c6b9bc9.chunk.js",
+    "main.js.map": "/tri-ad-speedometer/static/js/main.4c6b9bc9.chunk.js.map",
+    "runtime-main.js": "/tri-ad-speedometer/static/js/runtime-main.a5fbf944.js",
+    "runtime-main.js.map": "/tri-ad-speedometer/static/js/runtime-main.a5fbf944.js.map",
+    "static/js/2.962773d4.chunk.js": "/tri-ad-speedometer/static/js/2.962773d4.chunk.js",
+    "static/js/2.962773d4.chunk.js.map": "/tri-ad-speedometer/static/js/2.962773d4.chunk.js.map",
     "index.html": "/tri-ad-speedometer/index.html",
     "static/css/main.b796edeb.chunk.css.map": "/tri-ad-speedometer/static/css/main.b796edeb.chunk.css.map",
-    "static/js/2.89917009.chunk.js.LICENSE.txt": "/tri-ad-speedometer/static/js/2.89917009.chunk.js.LICENSE.txt"
+    "static/js/2.962773d4.chunk.js.LICENSE.txt": "/tri-ad-speedometer/static/js/2.962773d4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.5f914ba6.js",
-    "static/js/2.89917009.chunk.js",
+    "static/js/runtime-main.a5fbf944.js",
+    "static/js/2.962773d4.chunk.js",
     "static/css/main.b796edeb.chunk.css",
-    "static/js/main.361219d0.chunk.js"
+    "static/js/main.4c6b9bc9.chunk.js"
   ]
 }
